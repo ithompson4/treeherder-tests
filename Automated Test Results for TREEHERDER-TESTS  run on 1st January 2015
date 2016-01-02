@@ -1,0 +1,145 @@
+(tree) C:\Users\Iryna\Documents\GitHub\treeherder-tests>pip install -Ur requir
+ements.txt
+Collecting pytest==2.7.3 (from -r requirements.txt (line 1))
+  Using cached pytest-2.7.3-py2.py3-none-any.whl
+Collecting pytest-selenium (from -r requirements.txt (line 2))
+  Using cached pytest_selenium-1.1-py2-none-any.whl
+Collecting py>=1.4.29 (from pytest==2.7.3->-r requirements.txt (line 1))
+  Using cached py-1.4.31-py2.py3-none-any.whl
+Collecting colorama (from pytest==2.7.3->-r requirements.txt (line 1))
+  Using cached colorama-0.3.5-py2.py3-none-any.whl
+Collecting pytest-html>=1.7 (from pytest-selenium->-r requirements.txt (line 2))
+
+  Using cached pytest_html-1.7-py2.py3-none-any.whl
+Collecting pytest-variables (from pytest-selenium->-r requirements.txt (line 2))
+
+  Using cached pytest_variables-1.3-py2-none-any.whl
+Collecting requests (from pytest-selenium->-r requirements.txt (line 2))
+  Using cached requests-2.9.1-py2.py3-none-any.whl
+Collecting selenium>=2.26.0 (from pytest-selenium->-r requirements.txt (line 2))
+
+  Using cached selenium-2.48.0-py2-none-any.whl
+Installing collected packages: py, colorama, pytest, pytest-html, pytest-variabl
+es, requests, selenium, pytest-selenium
+Successfully installed colorama-0.3.5 py-1.4.31 pytest-2.7.3 pytest-html-1.7 pyt
+est-selenium-1.1 pytest-variables-1.3 requests-2.9.1 selenium-2.48.0
+
+(tree) C:\Users\Iryna\Documents\GitHub\treeherder-tests>py.test --driver=Firef
+ox
+============================= test session starts =============================
+platform win32 -- Python 2.7.11 -- py-1.4.31 -- pytest-2.7.3
+rootdir: C:\Users\Iryna\Documents\GitHub\treeherder-tests, inifile: setup.cfg
+plugins: html, selenium, selenium, variables
+collected 2 items
+
+tests\test_unclassified_job.py EE
+
+=================================== ERRORS ====================================
+______ ERROR at setup of TestUnclassifiedJobs.test_unclassified_failure _______
+
+request = <SubRequest 'selenium' for <Function 'test_unclassified_failure'>>
+capabilities = {'tags': ['treeherder']}
+
+    @pytest.fixture
+    def selenium(request, capabilities):
+        """Returns a WebDriver instance based on options and capabilities"""
+        from .driver import start_driver
+>       driver = start_driver(request.node, capabilities)
+
+..\..\..\tree\lib\site-packages\pytest_selenium\pytest_selenium.py:75:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\tree\lib\site-packages\pytest_selenium\driver.py:26: in start_driver
+    options.driver.lower()))(item, _capabilities)
+..\..\..\tree\lib\site-packages\pytest_selenium\driver.py:66: in firefox_driver
+    return webdriver.Firefox(**kwargs)
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\webdriver.py:77: in _
+_init__
+    self.binary, timeout),
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\extension_connection.
+py:49: in __init__
+    self.binary.launch_browser(self.profile)
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\firefox_binary.py:68:
+ in launch_browser
+    self._wait_until_connectable()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.firefox.firefox_binary.FirefoxBinary object at 0x0316
+FB70>
+
+    def _wait_until_connectable(self):
+        """Blocks until the extension is connectable in the firefox."""
+        count = 0
+        while not utils.is_connectable(self.profile.port):
+            if self.process.poll() is not None:
+                # Browser has exited
+                raise WebDriverException("The browser appears to have exited "
+                      "before we could connect. If you specified a log_file in "
+
+                      "the FirefoxBinary constructor, check it for details.")
+            if count == 30:
+                self.kill()
+>               raise WebDriverException("Can't load the profile. Profile "
+                      "Dir: %s If you specified a log_file in the "
+                      "FirefoxBinary constructor, check it for details.")
+E               WebDriverException: Message: Can't load the profile. Profile Dir
+: %s If you specified a log_file in the FirefoxBinary constructor, check it for
+details.
+
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\firefox_binary.py:103
+: WebDriverException
+__ ERROR at setup of TestUnclassifiedJobs.test_open_unclassified_failure_log __
+
+request = <SubRequest 'selenium' for <Function 'test_open_unclassified_failure_l
+og'>>
+capabilities = {'tags': ['treeherder']}
+
+    @pytest.fixture
+    def selenium(request, capabilities):
+        """Returns a WebDriver instance based on options and capabilities"""
+        from .driver import start_driver
+>       driver = start_driver(request.node, capabilities)
+
+..\..\..\tree\lib\site-packages\pytest_selenium\pytest_selenium.py:75:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\tree\lib\site-packages\pytest_selenium\driver.py:26: in start_driver
+    options.driver.lower()))(item, _capabilities)
+..\..\..\tree\lib\site-packages\pytest_selenium\driver.py:66: in firefox_driver
+    return webdriver.Firefox(**kwargs)
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\webdriver.py:77: in _
+_init__
+    self.binary, timeout),
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\extension_connection.
+py:49: in __init__
+    self.binary.launch_browser(self.profile)
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\firefox_binary.py:68:
+ in launch_browser
+    self._wait_until_connectable()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.firefox.firefox_binary.FirefoxBinary object at 0x0330
+FBB0>
+
+    def _wait_until_connectable(self):
+        """Blocks until the extension is connectable in the firefox."""
+        count = 0
+        while not utils.is_connectable(self.profile.port):
+            if self.process.poll() is not None:
+                # Browser has exited
+                raise WebDriverException("The browser appears to have exited "
+                      "before we could connect. If you specified a log_file in "
+
+                      "the FirefoxBinary constructor, check it for details.")
+            if count == 30:
+                self.kill()
+>               raise WebDriverException("Can't load the profile. Profile "
+                      "Dir: %s If you specified a log_file in the "
+                      "FirefoxBinary constructor, check it for details.")
+E               WebDriverException: Message: Can't load the profile. Profile Dir
+: %s If you specified a log_file in the FirefoxBinary constructor, check it for
+details.
+
+..\..\..\tree\lib\site-packages\selenium\webdriver\firefox\firefox_binary.py:103
+: WebDriverException
+========================== 2 error in 123.32 seconds ==========================
+
+(tree) C:\Users\Iryna\Documents\GitHub\treeherder-tests>
